@@ -1,29 +1,27 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+zfs-auto-snapshot scripts allow automatic snapshots of all zfs filesystems and volumes.
+The script will automatically rotate snapshots deleting old ones.
 
-### What is this repository for? ###
+It creates:
+4 snapshots for hour to rotate every 15 min
+24 hourly snapshots
+30 daily snapshots
+12 weekly snapshots
+12 yearly snapshots
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Script has been tested on zfs on linux 0.8.3, centos 7
+Original script from https://github.com/zfsonlinux/zfs-auto-snapshot
+I semplified the code and fixed some bugs
 
-### How do I get set up? ###
+# to install
+cd to current folder
+make install
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+# to uninstall
+cd to current folder
+make uninstall
 
-### Contribution guidelines ###
+# NOTE #
+uninstalling the script doesn't delete made snapshots
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
