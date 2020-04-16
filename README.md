@@ -2,6 +2,7 @@
 
 zfs-auto-snapshot scripts allow automatic snapshots of all zfs filesystems and volumes.  
 The script will automatically rotate snapshots deleting old ones.  
+The script will temporarely avoid backups on damaged pools or pools with scrubbing going on.
 
 It creates:  
 4 snapshots for hour to rotate every 15 min  

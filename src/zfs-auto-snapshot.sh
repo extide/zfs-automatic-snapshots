@@ -68,7 +68,7 @@ ZPOOLS_NOTREADY=$(echo "$ZPOOL_STATUS" | awk -F ': ' \
    $1 ~ /^ *state$/ && $2 !~ /ONLINE|DEGRADED/ { print pool } ' \
   | sort)
 
-# Initialize the list of datasets that will get a recursive snapshot.
+# Initialize the list of datasets that will get snapshots.
 TARGETS=''
 
 for ii in $CANDIDATES
@@ -93,10 +93,8 @@ do
 	TARGETS="$TARGETS $ii"
 done
 
-# ISO style date; fifteen characters: YYYY-MM-DD-HH-MM
-DATE=$(date --utc +%F-%H-%M)
 
-# The snapshot name after the @ symbol.
+DATE=$(date --utc +%F-%H-%M)
 SNAPNAME="${opt_prefix}_${opt_label}_$DATE"
 
 # The expression for matching old snapshots.
