@@ -1,6 +1,6 @@
 # README #
 
-zfs-auto-snapshot script crates automatic snapshots of all zfs filesystems and volumes.  
+zfs-auto-snapshot script creates automatic snapshots of all zfs filesystems and volumes.  
 The script will automatically rotate snapshots deleting old ones.  
 The script will temporarily avoid backups on damaged pools or pools with scrubbing going on.
 
