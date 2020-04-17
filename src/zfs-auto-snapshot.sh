@@ -1,6 +1,9 @@
 #!/bin/sh
 
 opt_prefix='zfs-auto-snap'
+opt_keep=10
+opt_label="defaultLabel"
+opt_threshold=0
 
 do_snapshots ()
 {
@@ -8,9 +11,20 @@ do_snapshots ()
 
 	for ii in $TARGETS
 	do
-		zfs snapshot "$ii@$SNAPNAME"
-
 		KEEP="$opt_keep"
+
+		if [ "$opt_threshold" -eq 0 ]
+	        then
+			zfs snapshot "$ii@$SNAPNAME"
+		else
+			bytes_written=`zfs get -Hp -o value written $ii`
+			if [ "$bytes_written" -ge "$opt_threshold" ]
+			then
+				zfs snapshot "$ii@$SNAPNAME"
+			else
+				KEEP=$(( $KEEP + 1 ))
+			fi
+		fi
 
 		# ASSERT: The old snapshot list is sorted by increasing age.
 		for jj in $SNAPSHOTS_OLD
@@ -33,12 +47,14 @@ do_snapshots ()
 # main ()
 # {
 
+
 while [ "$#" -gt '0' ]
 do
 	case "$1" in 
 		--keep)
 			if   [ ! "$2" -gt '0' ];
 			then
+				echo "keep parameters need to be greater than 0"
 				exit 1
 			fi
 			opt_keep="$2"
@@ -46,6 +62,15 @@ do
 			;;
 		--label)
 			opt_label="$2"
+			shift 2
+			;;
+		--threshold)
+			if   [ ! "$2" -ge '0' ];
+			then
+				echo "threshold parameters need to be equal or greater than 0"
+				exit 1
+			fi
+			opt_threshold="$2"
 			shift 2
 			;;
 	esac
