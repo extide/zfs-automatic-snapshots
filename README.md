@@ -27,7 +27,7 @@ make uninstall
 uninstalling the script doesn't delete made snapshots
 
 in src folder, before installing, you can customize some parameters  
---keep indicates the number of snapshots to save. Default to 10
---label indicates the label of snapshots. Default to defaultLabel
+--keep indicates the number of snapshots to save. Default to 10  
+--label indicates the label of snapshots. Default to defaultLabel  
 --threshold indicates how many bytes need to be written in a dataset after the last snapshot to allow new snapshots. Default 0 
 
